@@ -17,11 +17,161 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 0px;
+  }
+  .transition-g {
+    transition: all 0.3s ease-in-out;
+  }
+  .gridCol {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  }
+  .dropShadow {
+    box-shadow: 0px 1px 3px 0px rgba(50, 50, 71, 0.1);
+  }
+  .borderAttributes {
+    border-width: 2px;
+    border-style: solid;
+    transition: all 0.3s ease-in-out;
+  }
+  .borderAttributes:hover {
+    background-color: transparent;
+  }
+  .borderColor {
+    border-style: solid;
+    border-color: #eeeeee;
+  }
+  .unsetPosition {
+    position: unset;
+  }
+  .buttonShadow {
+    box-shadow: 0px 1px 3px 0px rgba(47, 43, 67, 0.1),
+      0px 2px 0px 0px rgba(234, 234, 234, 0.25) inset;
+  }
+  .strokeFill path {
+    fill: #fff;
+    opacity: 1;
+    stroke: #ffffff;
+  }
+}
+
+/* global css from passpoint go app  */
+
+:root {
+  --header-padding: 80px;
+  --header-height: 100px;
+  --sidebar-width: 250px;
+
+  --graphikMedium: "GraphikMedium", sans-serif;
+  --graphikRegular: "GraphikRegular", sans-serif;
+  --graphikLight: "GraphikLight", sans-serif;
+  --graphikBold: "GraphikBold", sans-serif;
+  --graphikSemibold: "GraphikSemibold", sans-serif;
+
+  --desktop-width: 1150px;
+
+  --dark: #0b0d17;
+  --white: #ffffff;
+  --grey-1: #303237;
+  --grey-2: #565c69;
+  --grey-3: #7e8494;
+  --grey-4: #bdc0ce;
+  --grey-5: #e5e7ef;
+  --grey-6: #f4f5f8;
+
+  --v600: #00242d;
+
+  --sky-blue: #009ec4;
+  --sky-blue-active: #006f89;
+  --sky-blue-hover: #cbebf3;
+  --sky-blue-bg: #e6f5f980;
+  --sky-blue-light: #009ec410;
+
+  --cta-bg: #121212;
+  --secondary: #303237;
+
+  --negative: #ff3b2d;
+  --negative-box-shadow: #ffc7c3;
+  --negative-bg: #ffe6e4;
+
+  --positive: #07b463;
+  --positive-box-shadow: #66cb9f;
+  --positive-bg: #e6f8ef;
+
+  --warning-light: #ffd8bd;
+  --warning-200: #df752b;
+  --warning-300: #d85900;
+  --warning-400: #973e00;
+  --warning-500: #843600;
+  --warning-bg: #fbeee680;
+
+  --input-height: 48px;
+  --textarea-height: 100px;
+  --input-br: 12px;
+  --input-padding: 16px;
+  --input-transition: 0.3s ease-in;
+  --input-border: var(--grey-5);
+  --input-border-disabled: var(--grey-5);
+  --input-focus-bg: #e6f5f9;
+  --input-box-shadow: 0px 1px 3px 0px rgba(50, 50, 71, 0.1),
+    0px 0px 1px 0px rgba(12, 26, 75, 0.2);
+  --input-focus-box-shadow: #96d7e7;
+  --input-error-border: var(--negative);
+  --input-error-box-shadow: var(--negative-box-shadow);
+  --input-error-bg: var(--negative-bg);
+  --input-success-border: var(--positive);
+  --input-success-box-shadow: var(--positive-box-shadow);
+  --input-success-bg: var(--positive-bg);
+  --input-checkbox-width: 16px;
+
+  --flag-dropdown-width: clamp(40px, 15%, 200px);
+
+  --z-index-input-icon: 5;
+  --z-index-tooltip: 10;
+  --z-index-select-dropdown: 20;
+  --z-index-overlay: 30;
+
+  --outer-component-mg: 48px;
+  --inner-component-mg: 24px;
+  --inner-component-gap: 16px;
+  --outer-component-gap: 32px;
+  --sm-inner-component-mg: 8px;
+
+  --btn-fs: 16px;
+  --btn-height: 48px;
+  --btn-height-sd: 48px;
+  --btn-height-md: 40px;
+  --btn-br: 12px;
+  --btn-br-sd: 12px;
+  --btn-br-md: 8px;
+  --btn-br-sm: 6px;
+  --btn-padding: 24px;
+  --btn-disabled: var(--grey-4);
+  --btn-height-md: 40px;
+  --btn-height-sm: 32px;
+  --btn-secondary-shadow: 0px 1px 3px 0px rgba(47, 43, 67, 0.1),
+    0px 2px 0px 0px rgba(234, 234, 234, 0.25) inset;
+
+  --screen-padding-top: 64px;
+
+  --auth-layout-lhs-width: 250px;
+  --auth-layout-lhs-max-width: 400px;
+  --auth-outer-component-padding: 48px;
+  /* colors */
+  --blue: #2b60e9;
+  --green: #07b463;
+
+  --ctn-br-sd: 12px;
+  --ctn-br-md: 8px;
+  --ctn-br-sm: 6px;
+
+  --anim-come-down-sm: come-down-sm 0.5s ease-in-out;
+  --anim-come-down-sm-w-opacity: come-down-sm-w-opacity 0.5s ease-in-out;
+  --anim-slide-up: slide-up 0.4s forwards;
+  --anim-come-up-sm: come-up-sm 0.4s ease-in-out forwards;
+  --anim-come-down-sm: come-down-sm 0.6s ease-in-out;
+  --anim-dropdown: dropdown 0.2s ease-in-out forwards;
 }
