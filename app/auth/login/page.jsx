@@ -8,6 +8,8 @@ import functions from "@/utils/functions";
 import Input from "@/components/forms/Input";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
+import { authenticate } from "@/services/restService";
+import { useNotify } from "@/utils/hooks";
 
 const LoginPage = () => {
   const { validEmail } = functions;
@@ -32,6 +34,8 @@ const LoginPage = () => {
     }));
   };
 
+  const notify = useNotify();
+
   const handleSubmit = async (e) => {
     // setLogout()
     e.preventDefault();
@@ -55,6 +59,18 @@ const LoginPage = () => {
     // } finally {
     //   setIsLoading(false);
     // }
+    try {
+      const response = await authenticate.login(payload);
+      console.log(response);
+      notify("success", `You're logged in as ${payload.email}`);
+      push("/dashboard");
+    } catch (_err) {
+      const { message } = _err.response?.data || _err;
+      console.log(message);
+      notify("error", message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {

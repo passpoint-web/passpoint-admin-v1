@@ -1,5 +1,7 @@
 import localFont from "next/font/local";
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
+import { ToastContainer } from "react-toastify";
 
 const graphik = localFont({
   src: [
@@ -40,7 +42,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${graphik.variable}`}>{children}</body>
+      <body className={`${graphik.variable}`}>
+        {children}
+        <ToastContainer
+          position="top-right"
+          autoClose={4000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          draggable={false}
+          closeOnClick
+          pauseOnHover
+        />
+      </body>
     </html>
   );
 }
