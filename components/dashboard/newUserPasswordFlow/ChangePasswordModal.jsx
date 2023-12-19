@@ -3,19 +3,19 @@ import Input from "@/components/forms/Input";
 import PasswordField from "@/components/forms/PasswordField";
 import ModalWrapper from "@/components/modals/ModalWrapper";
 import Button from "@/components/ui/Button";
-import { useRouter } from "next/navigation";
+import { saveCredentials } from "@/services/localService";
+import { authenticate } from "@/services/restService";
+import { useNotify } from "@/utils/hooks";
 import React, { useEffect, useState } from "react";
 
 const ChangePasswordModal = ({ setModal }) => {
-  const { push, back } = useRouter();
-  //   const email = getForgotPasswordEmail();
+  const savedCredentials = saveCredentials();
   const [isLoading, setIsLoading] = useState(false);
   const [ctaClicked, setCtaClicked] = useState(false);
   const [passwordFieldsValid, setPasswordFieldsValid] = useState(false);
   const [payload, setPayload] = useState({
     password: "",
     confirm: "",
-    // email,
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,30 +25,29 @@ const ChangePasswordModal = ({ setModal }) => {
     }));
   };
 
-  //   const notify = useNotify();
+  const notify = useNotify();
 
-  const handleResetPasswordSubmit = async (e) => {
+  const handleChangePassword = async (e) => {
     e.preventDefault();
+    console.log(payload);
     setCtaClicked(true);
     if (!passwordFieldsValid) {
       return;
     }
-    console.log("Helo")
-    setModal("password-success");
-    console.log("okay")
     setIsLoading(true);
-    // try {
-    //   const response = await authenticate.resetPassword(payload);
-    //   const { message } = response.data;
-    //   notify("success", message);
-    //   saveForgotPasswordEmail("");
-    //   push("/auth/login");
-    // } catch (_err) {
-    //   const { message } = _err.response?.data || _err;
-    //   notify("error", message);
-    // } finally {
-    //   setIsLoading(false);
-    // }
+    try {
+      const response = await authenticate.changeAdminPassword(payload);
+      if (response.status === 200) {
+        saveCredentials({ ...savedCredentials, passwordChanged: true });
+        setModal("password-success");
+      }
+    } catch (_err) {
+      const { message } = _err.response?.data || _err;
+      console.log(message);
+      notify("error", message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -66,7 +65,7 @@ const ChangePasswordModal = ({ setModal }) => {
       title="Update Your Password"
       subtitle="Kindly enter a unique password to secure your account"
     >
-      <form onSubmit={handleResetPasswordSubmit}>
+      <form onSubmit={handleChangePassword}>
         <section>
           <Input
             label="Password"
@@ -126,9 +125,8 @@ const ChangePasswordModal = ({ setModal }) => {
           <Button
             type="button"
             text="Skip for Now >>"
-            loading={isLoading}
             size="md"
-            onClick={() => setModal("")}
+            onClick={() => setModal(null)}
             // disabled
             className="w-full font-medium text-primary-blue"
           />
