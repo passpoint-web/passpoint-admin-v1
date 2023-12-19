@@ -1,5 +1,5 @@
 import ModalWrapper from "@/components/modals/ModalWrapper";
-import Links from "@/components/ui/Links";
+import Button from "@/components/ui/Button";
 import { SuccessIconBig } from "@/icons/icon";
 import React from "react";
 
@@ -17,8 +17,8 @@ const SuccessfulPassword = ({ setModal }) => {
             dashboard
           </p>
         </article>
-        <Links
-          href="/dashboard"
+        <Button
+          onClick={() => setModal(false)}
           text="Go to Dashboard"
           variant="secondary"
           size="md"

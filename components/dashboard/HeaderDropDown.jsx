@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, LogoutIcon } from "@/icons/icon";
+import { useRouter } from "next/navigation";
+import { setLogout } from "@/services/localService";
 
 const dropData = [
   {
@@ -10,6 +12,7 @@ const dropData = [
 ];
 
 const HeaderDropDown = () => {
+  const { push } = useRouter();
   const [showSelect, setShowSelect] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -32,8 +35,9 @@ const HeaderDropDown = () => {
     };
   }, []);
 
-  const handleSelect = (data) => {
-    setShowSelect(false);
+  const handleLogout = () => {
+    setLogout();
+    push("/auth/login");
   };
   return (
     <>
@@ -59,7 +63,7 @@ const HeaderDropDown = () => {
             {dropData.map((item, i) => (
               <button
                 key={i}
-                // onClick={() => handleSelect(item)}
+                onClick={() => handleLogout(item)}
                 className="w-full flex items-center gap-2 rounded-[4px] text-[14px] text-error-1 font-graphik p-[8px_5px_8px_10px] font-medium transition-g hover:bg-error-2"
               >
                 <item.image />

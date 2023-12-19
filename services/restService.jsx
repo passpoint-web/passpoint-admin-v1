@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getToken } from "./localService";
 
 const restAgent = axios.create({
   baseURL: "https://webapi-dev.mypasspoint.com/v1/",
@@ -7,22 +8,27 @@ const restAgent = axios.create({
   },
 });
 
+// restAgent.interceptors.request.use((config) => {
+//   const token = getToken();
+//   config.headers["Authorization"] = `Bearer ${token}`;
+//   return config;
+// });
+
+const getRequestConfig = () => {
+  return {
+    headers: {},
+    params: {},
+  };
+};
+
 export const setConfig = () => {
   const token = getToken();
-  // console.log(cookies.get('token'))
   const config = getRequestConfig();
   config.headers.Authorization = `Bearer ${token}`;
   return config;
 };
 
 export const authenticate = {
-  registerUser: (path, data) => {
-    return restAgent.post(path, data);
-  },
-  checkBusinessName: (data) => {
-    return restAgent.post("checkBusinessName", data);
-  },
-
   verifyEmailOtp: (data) => {
     return restAgent.post("verifyUserOtp", data);
   },
@@ -31,8 +37,8 @@ export const authenticate = {
     return restAgent.post("login-admin", data);
   },
 
-  forgotPassword: (data) => {
-    return restAgent.post("forgotPassword", data);
+  changeAdminPassword: (data) => {
+    return restAgent.post("changeAdminPassword", data, setConfig());
   },
 
   resetPassword: (data) => {

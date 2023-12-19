@@ -6,10 +6,20 @@ import WalletMiniTable from "@/components/dashboard/home/WalletMiniTable";
 import ChangePasswordModal from "@/components/dashboard/newUserPasswordFlow/ChangePasswordModal";
 import SuccessfulPassword from "@/components/dashboard/newUserPasswordFlow/SuccessfulPassword";
 import HomeTitle from "@/components/ui/homeTitle";
-import { useState } from "react";
+import { getCredentials } from "@/services/localService";
+import { useEffect, useState } from "react";
 
 const Dashboard = () => {
-  const [modal, setModal] = useState("change-password");
+  const [modal, setModal] = useState(null);
+  const checkPassword = getCredentials();
+  console.log(checkPassword);
+
+  useEffect(() => {
+    if (checkPassword && checkPassword.passwordChanged === false) {
+      setModal("change-password");
+    }
+  }, []);
+
   return (
     <>
       <div>

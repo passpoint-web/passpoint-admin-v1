@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Logo from "../../../assets/images/admin-logo.png";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import PasswordField from "@/components/forms/PasswordField";
 import functions from "@/utils/functions";
 import Input from "@/components/forms/Input";
@@ -10,13 +10,11 @@ import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { authenticate } from "@/services/restService";
 import { useNotify } from "@/utils/hooks";
+import { saveCredentials, saveToken } from "@/services/localService";
 
 const LoginPage = () => {
   const { validEmail } = functions;
-  // const {loginUser} = useAuth()
-  // eslint-disable-next-line no-unused-vars
   const { push } = useRouter();
-  const searchParams = useSearchParams();
   const [ctaClicked, setCtaClicked] = useState(false);
   const [allFieldsValid, setAllFieldsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,31 +35,19 @@ const LoginPage = () => {
   const notify = useNotify();
 
   const handleSubmit = async (e) => {
-    // setLogout()
     e.preventDefault();
     setCtaClicked(true);
     if (!allFieldsValid) {
       return;
     }
     setIsLoading(true);
-    // try {
-    //   const response = await login(payload);
-    //   const { data, token } = response.data;
-    //   saveToken(token);
-    //   saveCredentials(data);
-    //   directUser(data);
-    //   notify("success", `You're logged in as ${payload.email}`);
-    // } catch (_err) {
-    //   const { message } = _err.response?.data || _err;
-    //   console.log(message);
-    //   setFeedbackError(message);
-    //   notify("error", message);
-    // } finally {
-    //   setIsLoading(false);
-    // }
     try {
       const response = await authenticate.login(payload);
+      const { data, token } = response.data;
       console.log(response);
+      console.log(token);
+      saveToken(token);
+      saveCredentials(data);
       notify("success", `You're logged in as ${payload.email}`);
       push("/dashboard");
     } catch (_err) {

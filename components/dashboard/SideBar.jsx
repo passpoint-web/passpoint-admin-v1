@@ -27,7 +27,9 @@ const SideBar = () => {
               {/* {pathname === item.path && (
                 <small className="absolute block -top-5 -right-10 z-30 mr-4 w-8 h-8 bg-primary-black transform origin-bottom-right"></small>
               )} */}
-              <item.icon className={pathname === item.path && "strokeFill"} />
+              <item.icon
+                className={pathname === item.path ? "strokeFill" : ""}
+              />
               <span>{item.title}</span>
             </Link>
           ))}
