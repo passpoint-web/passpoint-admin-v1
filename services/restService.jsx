@@ -8,14 +8,14 @@ const restAgent = axios.create({
   },
 });
 
-const restAgentLive = axios.create({
-  baseURL: "https://webapi.mypasspoint.com/v1/",
+const restAgentMVP = axios.create({
+  baseURL: "https://webapi-dev.mypasspoint.com/v1/",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-restAgentLive.interceptors.response.use(undefined, (error) => {
+restAgentMVP.interceptors.response.use(undefined, (error) => {
   const statusCode = error.response ? error.response.status : null;
   if (
     statusCode &&
@@ -31,14 +31,8 @@ restAgentLive.interceptors.response.use(undefined, (error) => {
 });
 
 export const registerUser = (path, data) => {
-  return restAgentLive.post(path, data);
+  return restAgentMVP.post(path, data);
 };
-
-// restAgent.interceptors.request.use((config) => {
-//   const token = getToken();
-//   config.headers["Authorization"] = `Bearer ${token}`;
-//   return config;
-// });
 
 const getRequestConfig = () => {
   return {
@@ -61,47 +55,47 @@ export const setConfig = () => {
 
 export const authenticate = {
   verifyEmailOtp: (data) => {
-    return restAgent.post("verifyUserOtp", data);
+    return restAgentMVP.post("verifyUserOtp", data);
   },
 
   login: (data) => {
-    return restAgent.post("login-admin", data);
+    return restAgentMVP.post("login-admin", data);
   },
 
   changeAdminPassword: (data) => {
-    return restAgent.post("changeAdminPassword", data, setConfig());
+    return restAgentMVP.post("changeAdminPassword", data, setConfig());
   },
 
   resetPassword: (data) => {
-    return restAgent.post("resetPassword", data);
+    return restAgentMVP.post("resetPassword", data);
   },
 
   resendOtp: (data) => {
-    return restAgent.post("resendOtp", data);
+    return restAgentMVP.post("resendOtp", data);
   },
 };
 
 export const kyc = {
   getKycDetails: () => {
-    return restAgentLive.get("getKycDetails", setConfigOld());
+    return restAgentMVP.get("getKycDetails", setConfigOld());
   },
   getKycDashboardStats: () => {
-    return restAgentLive.get("kycStats", setConfigOld());
+    return restAgentMVP.get("kycStats", setConfigOld());
   },
   getUnapprovedUsers: () => {
-    return restAgentLive.post("getUnapprovedUsers", setConfigOld());
+    return restAgentMVP.post("getUnapprovedUsers", setConfigOld());
   },
   getKycSingleDetails: (userId) => {
-    return restAgentLive.post(
+    return restAgentMVP.post(
       "getKycSingleDetails",
       { userId: Number(userId) },
       setConfigOld()
     );
   },
   approveKYC: (userId) => {
-    return restAgentLive.post("approveKyc", { userId }, setConfigOld());
+    return restAgentMVP.post("approveKyc", { userId }, setConfigOld());
   },
   rejectKYC: (userId) => {
-    return restAgentLive.post("rejectKyc", { userId }, setConfigOld());
+    return restAgentMVP.post("rejectKyc", { userId }, setConfigOld());
   },
 };

@@ -12,6 +12,7 @@ export default function UserDetailPage() {
   const { user_id } = useParams();
   const selectedUser = getSelectedUser();
   const [isLoading, setIsLoading] = useState(false);
+  const [dataReady, setDataReady] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [user, setUser] = useState({});
   const [userApproved, setUserApproved] = useState(false);
@@ -47,13 +48,16 @@ export default function UserDetailPage() {
   useEffect(() => {
     setUser(selectedUser);
   }, []);
-  useEffect(() => {
-    if (user_id) {
-      getSingleKYCInfo();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user_id]);
 
+  useEffect(()=>{
+    if (Object.keys(user).length && user_id) {
+      setDataReady(true)
+    }
+
+  },[user_id, user])
+  useEffect(()=>{
+    getSingleKYCInfo()
+  },[dataReady])
   return (
     <div className="bg-primary-white font-graphik p-6 rounded-lg shadow-sm mx-6 my-6" >
       {isLoading && <FWLoader />}
