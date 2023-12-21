@@ -70,7 +70,7 @@ const ResetPassword = () => {
           Kindly enter a unique password to secure your account
         </p>
       </article>
-      <section>
+      <section className="mt-10">
         <Input
           label="Password"
           id="password"
