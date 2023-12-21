@@ -9,7 +9,7 @@ const restAgent = axios.create({
 });
 
 const restAgentMVP = axios.create({
-  baseURL: "https://webapi.mypasspoint.com/v1/",
+  baseURL: "https://webapi-dev.mypasspoint.com/v1/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -34,12 +34,6 @@ export const registerUser = (path, data) => {
   return restAgentMVP.post(path, data);
 };
 
-// restAgent.interceptors.request.use((config) => {
-//   const token = getToken();
-//   config.headers["Authorization"] = `Bearer ${token}`;
-//   return config;
-// });
-
 const getRequestConfig = () => {
   return {
     headers: {},
@@ -61,23 +55,23 @@ export const setConfig = () => {
 
 export const authenticate = {
   verifyEmailOtp: (data) => {
-    return restAgent.post("verifyUserOtp", data);
+    return restAgentMVP.post("verifyUserOtp", data);
   },
 
   login: (data) => {
-    return restAgent.post("login-admin", data);
+    return restAgentMVP.post("login-admin", data);
   },
 
   changeAdminPassword: (data) => {
-    return restAgent.post("changeAdminPassword", data, setConfig());
+    return restAgentMVP.post("changeAdminPassword", data, setConfig());
   },
 
   resetPassword: (data) => {
-    return restAgent.post("resetPassword", data);
+    return restAgentMVP.post("resetPassword", data);
   },
 
   resendOtp: (data) => {
-    return restAgent.post("resendOtp", data);
+    return restAgentMVP.post("resendOtp", data);
   },
 };
 
