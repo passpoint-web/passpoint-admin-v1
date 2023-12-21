@@ -11,7 +11,7 @@ const dropData = [
   },
 ];
 
-const HeaderDropDown = () => {
+const HeaderDropDown = ({ user }) => {
   const { push } = useRouter();
   const [showSelect, setShowSelect] = useState(false);
   const dropdownRef = useRef(null);
@@ -39,6 +39,8 @@ const HeaderDropDown = () => {
     setLogout();
     push("/auth/login");
   };
+
+  const firstLetter = user.firstName ? user.firstName.charAt(0) : "";
   return (
     <>
       <div
@@ -46,10 +48,12 @@ const HeaderDropDown = () => {
         className="bg-primary-3 relative cursor-pointer rounded-[8px] p-[7px_8px] font-graphik"
       >
         <section onClick={toggleDropdown} className="flex items-center gap-2">
-          <span className="text-[24px] w-[50px] h-[50px] grid place-items-center leading-normal text-primary-grey p-[6px] rounded-full bg-primary-lightBlue font-extrabold shadow-[1px_-1px_0px_1px_#EEE_inset]">
-            D
+          <span className="text-[24px] w-[50px] h-[50px] grid place-items-center leading-normal text-primary-grey p-[6px] rounded-full bg-primary-lightBlue font-extrabold shadow-[1px_-1px_0px_1px_#EEE_inset] uppercase">
+            {firstLetter}
           </span>
-          <p className="text-[16px] font-medium text-primary-grey">Deborah</p>
+          <p className="text-[16px] font-medium text-primary-grey">
+            {user.firstName}
+          </p>
           <i
             className={`transition-[all_0.4s_ease_in] ${
               showSelect && "rotate-180"

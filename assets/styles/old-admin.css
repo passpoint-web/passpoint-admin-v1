@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --sidebar-width: 280px;
+    --primary: #009ec4;
+}
+
+.main-width {
+    width: calc(100% - var(--sidebar-width));
+    max-width: calc(100% - var(--sidebar-width));
+    left: var(--sidebar-width);
+    position: relative;
+}
+
+table tr:nth-child(even) {
+    background: #f0f0f07d;
+}
+
+table tr {
+    border: 0;
+}
+
+table tr th {
+    background: #ecececad;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    filter: grayscale(100%);
+    opacity: 0.3;
+    -webkit-filter: grayscale(100%);
+}
+
+/* SKELETON LOADER */
+.skeleton-loader {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.skeleton-header,
+.skeleton-row {
+    height: 3.5rem;
+    background-color: #f0f0f0;
+    animation: shimmer 1.5s infinite linear;
+}
+
+.skeleton-header {
+    width: 100%;
+}
+
+.skeleton-row {
+    margin-bottom: 0.5rem;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200%;
+    }
+
+    100% {
+        background-position: 200%;
+    }
+}
+
+.loader {
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #000;
+    width: 20px;
+    height: 20px;
+    -webkit-animation: spin 0.5s linear infinite;
+    animation: spin 0.5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* PROGRESS BAR */
+progress {
+    width: 110px;
+    background: #7be0dd46;
+    height: 8px;
+    transition: var(--progress-interval);
+    position: absolute;
+    bottom: 0;
+    -webkit-transition: var(--progress-interval);
+    -moz-transition: var(--progress-interval);
+    -ms-transition: var(--progress-interval);
+    -o-transition: var(--progress-interval);
+}
+
+progress::-webkit-progress-bar {
+    border-radius: 4px;
+    /* background: #e2fffe; */
+    background: var(--bg-grey);
+    transition: var(--progress-interval);
+}
+
+progress::-webkit-progress-value {
+    background: var(--primary);
+    transition: var(--progress-interval);
+    -webkit-transition: var(--progress-interval);
+    -moz-transition: var(--progress-interval);
+    -ms-transition: var(--progress-interval);
+    -o-transition: var(--progress-interval);
+}
+
+progress::-moz-progress-bar {
+    /* background: #e2fffe; */
+    background: var(--bg-grey);
+    transition: var(--progress-interval);
+}
+
+progress::-moz-progress-value {
+    background: var(--primary);
+    transition: var(--progress-interval);
+}
+
+@layer utilities {
+    .transition-g {
+        transition: all 0.5s ease-in-out;
+    }
+
+    .scaling {
+        transform: scale(1.03);
+    }
+
+    .gridCol {
+        grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    }
+}

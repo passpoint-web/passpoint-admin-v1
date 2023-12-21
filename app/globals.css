@@ -16,41 +16,49 @@
   }
 }
 
-body {
-}
+body {}
 
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     width: 0px;
   }
+
   .transition-g {
     transition: all 0.3s ease-in-out;
   }
+
   .gridCol {
     grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
   }
+
   .dropShadow {
     box-shadow: 0px 1px 3px 0px rgba(50, 50, 71, 0.1);
   }
+
   .borderAttributes {
     border-width: 2px;
     border-style: solid;
     transition: all 0.3s ease-in-out;
   }
+
   .borderAttributes:hover {
     background-color: transparent;
   }
+
   .borderColor {
     border-style: solid;
     border-color: #eeeeee;
   }
+
   .unsetPosition {
     position: unset;
   }
+
   .buttonShadow {
     box-shadow: 0px 1px 3px 0px rgba(47, 43, 67, 0.1),
       0px 2px 0px 0px rgba(234, 234, 234, 0.25) inset;
   }
+
   .strokeFill path {
     fill: #fff;
     opacity: 1;
@@ -174,4 +182,6 @@ body {
   --anim-come-up-sm: come-up-sm 0.4s ease-in-out forwards;
   --anim-come-down-sm: come-down-sm 0.6s ease-in-out;
   --anim-dropdown: dropdown 0.2s ease-in-out forwards;
+
+
 }
