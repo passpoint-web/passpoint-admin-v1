@@ -53,6 +53,7 @@ export default function UserDetailPage() {
     if (Object.keys(user).length && user_id) {
       setDataReady(true)
     }
+
   },[user_id, user])
   useEffect(()=>{
     getSingleKYCInfo()
