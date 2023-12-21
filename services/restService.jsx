@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "./localService";
 
 const restAgent = axios.create({
-  baseURL: "https://webapi-dev.mypasspoint.com/v1/",
+  baseURL: "https://webapi.mypasspoint.com/v1/",
   headers: {
     "Content-Type": "application/json",
   },
