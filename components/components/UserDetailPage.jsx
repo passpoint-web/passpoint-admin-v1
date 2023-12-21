@@ -55,7 +55,9 @@ export default function UserDetailPage() {
     }
   },[user_id, user])
   useEffect(()=>{
-    getSingleKYCInfo()
+    if (dataReady) {
+      getSingleKYCInfo()
+    }
   },[dataReady])
   return (
     <div className="bg-primary-white font-graphik p-6 rounded-lg shadow-sm mx-6 my-6" >
